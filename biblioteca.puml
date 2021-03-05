@@ -1,0 +1,57 @@
+@startuml biblioteca
+'https://plantuml.com/class-diagram
+
+skinparam classAttributeIconSize 0
+
+enum Genero << enumeration >> {
+    novela
+    teatro
+    poesía
+    ensayo
+}
+
+enum Estado << enumeration >> {
+    prestado
+    retraso
+    biblioteca
+    reparación
+}
+
+
+class Copia {
+    - referencia : Integer
+    - estado: EstadoCopia
+}
+class Socio {
+    - numero : Integer
+    - nombre : String
+    - direccion : String
+    - telefono : String
+}
+class Préstamo {
+    - inicio : Date
+    - fin : Date
+}
+
+class Libro {
+    - titulo : String
+    - editorial : String
+    - year : Integer
+    - tipo : Genero
+}
+
+class Autor {
+    - nombre : String
+    - nacionalidad : String
+    - fechaNacimiento : Date
+}
+
+Copia "0..3" -- "0..1" Socio
+(Copia, Socio) .. Préstamo
+Socio "sancionado" --- "sanción \n 0..1" Multa : recibe
+
+Copia "ejemplar \n 1..*" --right-- "libro" Libro
+Libro "obra \n 1..*" --down- "autor" Autor
+
+
+@enduml
