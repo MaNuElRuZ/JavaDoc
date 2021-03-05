@@ -1,0 +1,60 @@
+
+@startuml
+skinparam classAttributeIconSize 0
+
+enum TipoInstalacion << enumeration >> {
+    Piscina
+    Frontón
+    Gimnasio
+    PistaTenis
+}
+
+enum TipoArticulo << enumeration >> {
+    Balón
+    Red
+    Raqueta
+}
+
+class Socio {
+    - nombre : String
+    - direccion : String
+    - ciudad : String
+    - provincia : String
+    - telefono : String
+    - cuota : Float
+}
+
+class Articulo {
+    - codigo : Integer
+    - descripcion : String
+    - tipo : TipoArticulo
+}
+
+class Instalacion {
+    - nombre : String
+    - tipo : TipoInstalacion
+}
+
+class Reserva {
+    - id : Integer
+    - fecha : Date
+    - horaInicio : Date
+    - horaFin : Date
+}
+
+class ReservaArticulo {
+    - cantidad : Integer
+}
+
+class ReservaInstalacion {
+}
+
+
+Socio "1" -- "0..*" Reserva
+
+Articulo "1" -up- "0..*" ReservaArticulo
+Instalacion "1" -up- "0..*" ReservaInstalacion
+
+Reserva <|-- ReservaArticulo
+Reserva <|- ReservaInstalacion
+@enduml
